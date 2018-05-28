@@ -319,6 +319,7 @@ java -cp igtools.jar igtools.gui2.IGToolsGUI2
 ```
 
  <hr />
+ 
 ### People
 Prof. Vincenzo Manca
 
