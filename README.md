@@ -317,4 +317,14 @@ How to run the GUI:
 ```
 java -cp igtools.jar igtools.gui2.IGToolsGUI2
 ```
- 
+
+ <hr />
+### People
+Prof. Vincenzo Manca
+
+Dr. Vincenzo Bonnici
+
+Department of Computer Science, University of Verona, Italy.
+
+### Publications
+Bonnici, V. & Manca, V. Infogenomics Tools: A Computational Suite for Informational Analyses of Genomes. (2015) J. Bioinfo. Proteomics Rev 1(1): 7- 14.
