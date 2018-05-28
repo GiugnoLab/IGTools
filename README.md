@@ -330,4 +330,6 @@ Department of Computer Science, University of Verona, Italy.
 <hr />
 
 ### Publications
+```
 Bonnici, V. & Manca, V. Infogenomics Tools: A Computational Suite for Informational Analyses of Genomes. (2015) J. Bioinfo. Proteomics Rev 1(1): 7- 14.
+```
