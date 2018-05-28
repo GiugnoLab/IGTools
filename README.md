@@ -19,6 +19,151 @@ java -server -d64 -Xmn2560M -Xms6144M -Xmx6144M -cp igtools.jar <command> <param
  
 The example shows optimal settings for a 64bit machine with 8Gb of RAM.
 
+<hr />
+
+### CLI - Command Line Interface
+```
+java -cp igtools.jar command parameters
+```
+
+Running commands without parameters will output the help.
+
+
+##### Basic commands
+Convert from FASTA to 3bit format.
+```
+java -cp igtools.jar igtools.cli.util.FASTATo3bit <isequence.fa> <osequence.3bit>
+```
+The tool takes in input a file in FASTA format storing a genomic sequence and convert it into the 3bit IGTools format.
+
+Generate the NELSA structure and save it on file
+```
+java -cp igtools.jar igtools.cli.dictionaries.BuildNELSA <isequence.3bit> <onelsa.nelsa>
+```
+
+##### Informational indexes
+Obtain some features of a genomic sequence G, such as sequence length and number of characters N , plus
+
++ MHL(G): minimal hapax length
++ MRL(G): maximal repeat length
++ MFL(G): minimal forbidden length
++ empirical entropy at MFL(G) and MFL(G) - 1
+
+```
+java -cp igtools.jar igtools.cli.GenomeStats <isequence.3bit> <onelsa.nelsa>
+```
+Obtain cardinality of the following information sets, with respect to a genomic sequence G, for a given range of word length k
+
++ |D_k| the set of k-mers in G
++ |H_k| the set of hapax k-mer in G
++ |R_k| the set of repeat k-mers in G
++ |T_k| the overall k-mer multiplicity
++ |E_k| the empirical entropy at word length k
+
+```
+java -cp igtools.jar igtools.cli.GenomeKStats <from_k> <to_k> <isequence.3bit> <onelsa.nelsa>
+```
+
+Get the coverage of H_k(G) and R_k(G) for several values of k.
+```
+java -cp igtools.jar igtools.cli.coverage.HRCoverage <isequence.3bit> <onelsa.nelsa> <k...>
+```
+Enumerate k-mers, for a given k, and their multiplicity.
+```
+java -cp igtools.jar igtools.cli.dictionaries.EnumerateKmers <isequence.3bit> <onelsa.nelsa> <k>
+```
+
+Show k-mer frequencies.
+```
+java -cp igtools.jar igtools.cli.dictionaries.EnumerateKmers <isequence.3bit> <onelsa.nelsa> <k>
+```
+
+##### Genomic distributions
+Multiplicity/Co-Multiplicity distribution.
+```
+java -cp igtools.jar igtools.cli.distributions.MultiplicityDistribution <k> <isequence.3bit> <onelsa.nelsa>
+```
+
+##### Dictionaries in FASTA format
+Words are listed in FASTA files. Every line is a word.
+Add reverse complement (RC) of words.
+```
+java -cp igtools.jar igtools.cli.wordset.AddRC <seqs.fa>
+```
+Calculate the sequence coverage of a set of sequences (a dictionary) in a given genomic sequence (3bit + NELSA)
+```
+java -cp igtools.jar igtools.cli.wordset.Coverage <seqs.fa> <isequence.3bit> <inelsa.nelsa>
+```
+Calculate the following statistics for a set of input words over a genomic sequence (3bit + NEKLA):
+
++ total number of input words
++ um of their length
++ sequence coverage
++ coverage ratio
++ number of contiguous covered regions
++ length distribution
++ multiplicity distribution
++ number of hapaxes
++ number of minimal hapaxes
++ number of repeats
++ number of maximal repeats
+
+```
+java -cp igtools.jar igtools.cli.wordset.WordsProperties <seqs.fa> <isequence.3bit> <inelsa.nelsa>
+```
+Calculate only the multiplicity distribution
+```
+java -cp igtools.jar igtools.cli.wordset.MultiplicityDistribution <seqs.fa> <isequence.3bit> <inelsa.nelsa>
+```
+
+
+##### Dictionaries in FASTA format : set-theoretic operations
+Words are listed in FASTA files. Every line is a word.
+Select words of a given length.
+```
+java -cp igtools.jar igtools.cli.wordset.SelectByLength [eq|geq|leq] <k> <seqs.fa>
+```
+
+Print statistics about two distinct sets of words s1 and s2:
+
++ number of words in s1 and s2
++ number of words in s1 (s2) that are the reverse complement of other words in s1 (s2)
++ number of words in s2 that are in s1
++ cardinality of the union of the two input sets
+
+```
+java -cp igtools.jar igtools.cli.wordset.SharingStats <s1.fa> <s2.fa>
+```
+Set union for two sets of words s1 and s2:
+```
+java -cp igtools.jar igtools.cli.wordset.Difference <s1.fa> <s2.fa>
+```
+Set union for a list of input sets.
+```
+java -cp igtools.jar igtools.cli.wordset.Difference {files...}
+```
+
+Set intersection between two sets of words s1 and s2:
+
++ exact : list words that are shared between the two sets
++ prefix : list words of s1 if there exists at least a word in s2 such that the word in s1 is a prefix of the word in s2
++ suffix : list words of s1 if there exists at least a word in s2 such that the word in s1 is a suffix of the word in s2
++ sub : list words of s1 if there exists at least a word in s2 such that the word in s1 is a substring of the word in s2
+
+```
+java -cp igtools.jar igtools.cli.wordset.Intersection2 [exact|prefix|suffix|sub] <s1.fa> <s2.fa>
+```
+
+Set difference between two sets of words s1 and s2:
+```
+java -cp igtools.jar igtools.cli.wordset.Difference <s1.fa> <s2.fa>
+```
+Given a set of words, remove duplicates and sub-included words
+```
+java -cp igtools.jar igtools.cli.wordset.MinimalList <s1.fa>
+```
+
+<hr />
 
 ### For developers
 Read a sequence from a 3bit format file.
@@ -165,4 +310,11 @@ if(it_a != null && it_b != null){
 }
 ```
  
+ <hr />
+ 
+ ### GUI - Graphical User Interface
+How to run the GUI:
+```
+java -cp igtools.jar igtools.gui2.IGToolsGUI2
+```
  
